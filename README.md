@@ -1,19 +1,19 @@
-## tart-lab — Provision de VMs Tart avec Ansible
+## tart-lab — Provision Tart VMs with Ansible
 
-Projet Ansible minimaliste pour cloner et configurer des VMs macOS/tart à partir d'une image de base, afin de monter rapidement un petit cluster (ex: Kubernetes master/worker) ou des VMs utilitaires.
+Minimal Ansible project to clone and configure macOS/tart VMs from a base image, in order to quickly spin up a small cluster (e.g., Kubernetes master/worker) or utility VMs.
 
-### Prérequis
-- **macOS** avec l'hyperviseur Apple (Apple Silicon recommandé)
-- **Tart** installé et accessible dans le `PATH`
-- **Ansible** 2.13+ (ou plus récent)
+### Prerequisites
+- **macOS** with Apple Hypervisor (Apple Silicon recommended)
+- **Tart** installed and available in the `PATH`
+- **Ansible** 2.13+ (or newer)
 
 ### How to
-1) Vérifiez que Tart et Ansible sont installés et que l'image de base existe:
+1) Verify Tart and Ansible are installed and that the base image exists:
 ```bash
 tart --version
 ansible --version
 ```
-2) Lancez le playbook:
+2) Run the playbooks:
 ```bash
 ansible-playbook playbooks/prepare.yml
 ansible-playbook playbooks/deploy.yml
@@ -23,6 +23,6 @@ ansible-playbook playbooks/remove.yml
 ```
 
 ### To do
-gérer les ip du parc
-cloud init pour la clef ssh
-banc de test initiale
+- manage the fleet IPs
+- cloud-init for the SSH key
+- initial test bench
