@@ -1,0 +1,9 @@
+---
+- name: Configure CPU and memory for VMs
+  ansible.builtin.command:
+    argv: [ "tart", "set", "{{ vm.name }}", "--cpu", "{{ vm.cpu }}", "--memory", "{{ vm.memory }}" ]
+  loop: "{{ vms }}"
+  loop_control:
+    loop_var: vm
+    label: "{{ vm.name }}"
+  when: vm.name not in (existing_vms | default([]))

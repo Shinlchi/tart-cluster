@@ -1,0 +1,14 @@
+---
+- name: Ensure Tart is installed
+  ansible.builtin.command: which tart
+  register: tart_path
+  changed_when: false
+
+- name: Clone missing VMs from base image
+  ansible.builtin.command:
+    argv: [ "tart", "clone", "{{ base_image }}", "{{ vm.name }}" ]
+  loop: "{{ vms }}"
+  loop_control:
+    loop_var: vm
+    label: "{{ vm.name }}"
+  when: vm.name not in (existing_vms | default([]))

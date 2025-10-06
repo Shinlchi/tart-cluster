@@ -1,0 +1,10 @@
+base_image: ghcr.io/cirruslabs/ubuntu:latest
+vms:
+  - { name: "k8s-master",  cpu: 2, memory: 2048 }
+  - { name: "k8s-worker1", cpu: 2, memory: 2048 }
+  - { name: "k8s-worker2", cpu: 2, memory: 2048 }
+  - { name: "root-ca",     cpu: 1, memory: 512  }
+
+shin:
+  ssh_key:
+    pub: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwSYi0owmTzas9GPZRxgG4Xs6i+3+/y7oVGEFnQm4nR shin@Air-de-Daniel.lan"
