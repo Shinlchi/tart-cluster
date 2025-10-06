@@ -1,32 +1,22 @@
 ---
 # Main task entry for Tart VM management
 
-- name: Include clone tasks
-  ansible.builtin.import_tasks: clone.yml
+- name: Include prepare tasks
+  ansible.builtin.import_tasks: prepare.yml
   tags:
     - prepare
 
-- name: Include set tasks
-  ansible.builtin.import_tasks: set.yml
-  tags:
-    - configure
-
 - name: Include run tasks
-  ansible.builtin.import_tasks: run.yml
+  ansible.builtin.import_tasks: deploy.yml
   tags:
     - deploy
 
-- name: Include stop tasks
-  ansible.builtin.import_tasks: stop.yml
-  tags:
-    - stop
+# - name: Include stop tasks
+#   ansible.builtin.import_tasks: stop.yml
+#   tags:
+#     - stop
 
-- name: Include delete tasks
-  ansible.builtin.import_tasks: delete.yml
-  tags:
-    - delete
-
-- name: Include remove tasks
-  ansible.builtin.import_tasks: remove.yml
-  tags:
-    - remove
+# - name: Include delete tasks
+#   ansible.builtin.import_tasks: delete.yml
+#   tags:
+#     - remove

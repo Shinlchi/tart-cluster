@@ -1,0 +1,11 @@
+---
+- name: Deploy Tart VMs
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Run deploy tasks from role
+      ansible.builtin.include_role:
+        name: tart_vm
+        tasks_from: deploy.yml

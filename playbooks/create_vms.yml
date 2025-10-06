@@ -1,8 +1,0 @@
----
-- name: Create Kubernetes cluster VMs with Tart
-  hosts: localhost
-  connection: local
-  gather_facts: true
-
-  roles:
-    - role: tart_vm

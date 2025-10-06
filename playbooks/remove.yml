@@ -1,0 +1,11 @@
+---
+- name: Remove Tart VMs
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Run remove tasks from role
+      ansible.builtin.include_role:
+        name: tart_vm
+        tasks_from: remove.yml

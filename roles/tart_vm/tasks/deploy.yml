@@ -6,4 +6,15 @@
   loop_control:
     loop_var: vm
     label: "{{ vm.name }}"
-  when: vm.name not in (existing_vms | default([]))
+
+- name: Run VM
+  ansible.builtin.command:
+    argv: [ "tart", "run", "--no-graphics", "{{ vm.name }}" ]
+  loop: "{{ vms }}"
+  loop_control:
+    loop_var: vm
+    label: "{{ vm.name }}"
+  async: 86400
+  poll: 0
+  tags:
+    - deploy

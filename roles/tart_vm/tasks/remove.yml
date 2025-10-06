@@ -1,7 +1,7 @@
 ---
 - name: Remove VM
   ansible.builtin.command:
-    argv: [ "tart", "stop", "{{ vm.name }}" ]
+    argv: [ "tart", "delete", "{{ vm.name }}" ]
   loop: "{{ vms }}"
   loop_control:
     loop_var: vm
