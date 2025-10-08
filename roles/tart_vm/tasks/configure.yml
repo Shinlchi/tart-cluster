@@ -1,38 +1,24 @@
 ---
-- name: Detect primary interface name inside guest
+- name: Set hostname in VM
   ansible.builtin.shell: |
-    tart exec {{ inventory_hostname }} ip -o link show | awk -F':' '{print $2}' | grep -v lo | head -n1
-  register: iface
-  changed_when: false
+    tart exec {{ inventory_hostname }} sh -c "sudo hostnamectl set-hostname {{ inventory_hostname }}"
   delegate_to: localhost
 
-- name: Set ip address for each VM
-  ansible.builtin.shell: |
-    NIC=$(tart exec {{ inventory_hostname }} ip -o link show | awk -F":" '{print $2}' | grep -v lo);
-    tart exec {{ inventory_hostname }} sudo ip address flush dev $NIC;
-    tart exec {{ inventory_hostname }} sudo ip address add {{ ansible_host }}/24 dev $NIC;
-  delegate_to: localhost
-
-- name: Render netplan of each VM
-  ansible.builtin.template:
-    src: netplan.yaml.j2
-    dest: "/tmp/{{ inventory_hostname }}-netplan.yaml"
-    mode: '0644'
-  delegate_to: localhost
+- name: Set ssh public key
+  ansible.posix.authorized_key:
+    user: admin
+    state: present
+    key: "{{ ssh_public_key }}"
   vars:
-    iface_name: "{{ iface.stdout | trim }}"
-    vm:
-      ip: "{{ ansible_host }}"
-
-- name: Copy rendered netplan to each VM
-  ansible.builtin.copy:
-    src: "/tmp/{{ inventory_hostname }}-netplan.yaml"
-    dest: "/etc/netplan/"
-    mode: '0644'
-  delegate_to: "{{ inventory_hostname }}"
+    ssh_public_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" 
+  
+- name: Ensure all inventory hosts are in /etc/hosts
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    line: "{{ hostvars[item].ansible_host | default(item) }} {{ item }}"
+    state: present
+    backup: true
+    regexp: "^{{ hostvars[item].ansible_host | default(item) }}\\s+{{ item }}"
+  loop: "{{ groups['all'] | difference(['localhost']) }}"
   become: true
-
-- name: Apply netplan
-  ansible.builtin.shell: |
-    tart exec {{ inventory_hostname }} sh -c "sudo netplan apply"
   delegate_to: localhost

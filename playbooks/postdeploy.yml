@@ -1,0 +1,13 @@
+---
+- name: Post-deploy networking configuration for Tart VMs
+  hosts: all:!localhost
+  connection: ssh
+  gather_facts: true
+
+  tasks:
+    - name: Run postdeploy tasks from role
+      ansible.builtin.include_role:
+        name: tart_vm
+        tasks_from: postdeploy.yml
+
+

@@ -11,7 +11,11 @@
   tags:
     - deploy
 
-# Configure networking inside the guests
+- name: Include post-deploy networking tasks
+  ansible.builtin.import_tasks: postdeploy.yml
+  tags:
+    - postdeploy
+
 - name: Include configure tasks
   ansible.builtin.import_tasks: configure.yml
   tags:

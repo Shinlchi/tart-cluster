@@ -17,12 +17,10 @@ ansible --version
 ```bash
 ansible-playbook playbooks/prepare.yml
 ansible-playbook playbooks/deploy.yml
-ansible-playbook playbooks/configure.yml -i inventory/cluster.yml
+ansible-playbook playbooks/configure.yml --ask-become-pass
 ansible-playbook playbooks/stop.yml
 ansible-playbook playbooks/remove.yml
 ```
 
 ### To do
-- manage the fleet IPs
-- cloud-init for the SSH key
 - initial test bench
