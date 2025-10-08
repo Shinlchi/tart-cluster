@@ -6,6 +6,11 @@
   tags:
     - prepare
 
+- name: Include start tasks
+  ansible.builtin.import_tasks: start.yml
+  tags:
+    - start
+
 - name: Include run tasks
   ansible.builtin.import_tasks: deploy.yml
   tags:
