@@ -1,0 +1,13 @@
+---
+- name: Configure networking inside Tart VMs
+  hosts: all:!localhost
+  connection: ssh
+  gather_facts: false
+
+  tasks:
+    - name: Run configure tasks from role
+      ansible.builtin.include_role:
+        name: tart_vm
+        tasks_from: configure.yml
+
+

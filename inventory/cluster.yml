@@ -1,0 +1,29 @@
+---
+all:
+  children:
+    master:
+      hosts:
+        k8s-master:
+          ansible_host: 192.168.64.10
+      vars:
+        ansible_user: admin
+        ansible_password: admin
+        ansible_become_password: admin
+    workers:
+      hosts:
+        k8s-worker1:
+          ansible_host: 192.168.64.11
+        k8s-worker2:
+          ansible_host: 192.168.64.12
+      vars:
+        ansible_user: admin
+        ansible_password: admin
+        ansible_become_password: admin
+    ca:
+      hosts:
+        root-ca:
+          ansible_host: 192.168.64.50
+      vars:
+        ansible_user: admin
+        ansible_password: admin
+        ansible_become_password: admin

@@ -1,0 +1,8 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    {{ iface_name }}:
+      dhcp4: false
+      addresses:
+        - {{ vm.ip }}/24

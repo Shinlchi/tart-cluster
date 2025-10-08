@@ -1,9 +1,11 @@
 base_image: ghcr.io/cirruslabs/ubuntu:latest
+
+# Per-VM definition. Add the desired static IP in 'ip'.
 vms:
   - { name: "k8s-master",  cpu: 2, memory: 2048 }
   - { name: "k8s-worker1", cpu: 2, memory: 2048 }
   - { name: "k8s-worker2", cpu: 2, memory: 2048 }
-  - { name: "root-ca",     cpu: 1, memory: 512  }
+  - { name: "root-ca",     cpu: 1, memory: 512 }
 
 shin:
   ssh_key:
