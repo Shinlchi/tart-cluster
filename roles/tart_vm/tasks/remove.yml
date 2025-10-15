@@ -1,12 +1,7 @@
 ---
 - name: Remove VM
-  ansible.builtin.command:
-    argv: [ "tart", "delete", "{{ vm.name }}" ]
-  loop: "{{ vms }}"
-  loop_control:
-    loop_var: vm
-    label: "{{ vm.name }}"
-  async: 86400
-  poll: 0
+  ansible.builtin.shell: |
+    tart delete {{ inventory_hostname }}
+  delegate_to: localhost
   tags:
     - remove

@@ -8,11 +8,10 @@
 
 - name: Clone missing VMs from base image
   ansible.builtin.command:
-    argv: [ "tart", "clone", "{{ base_image }}", "{{ vm.name }}" ]
-  loop: "{{ vms }}"
+    argv: [ "tart", "clone", "{{ base_image }}", "{{ item }}" ]
+  loop: "{{ groups['all'] | difference(['localhost']) }}"
   loop_control:
-    loop_var: vm
-    label: "{{ vm.name }}"
+    label: "{{ item }}"
   when: vm.name not in (existing_vms | default([]))
   tags:
     - prepare

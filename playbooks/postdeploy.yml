@@ -1,8 +1,8 @@
 ---
 - name: Post-deploy networking configuration for Tart VMs
-  hosts: all:!localhost
+  hosts: localhost
   connection: ssh
-  gather_facts: true
+  gather_facts: false
 
   tasks:
     - name: Run postdeploy tasks from role

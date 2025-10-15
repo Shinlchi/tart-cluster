@@ -3,7 +3,5 @@
   ansible.builtin.shell: |
     tart run --no-graphics {{ inventory_hostname }}
   delegate_to: localhost
-  async: 86400
-  poll: 0
   tags:
     - start

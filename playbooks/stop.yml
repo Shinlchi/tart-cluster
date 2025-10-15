@@ -1,8 +1,8 @@
 ---
 - name: Stop Tart VMs
-  hosts: localhost
+  hosts: all:!localhost
   connection: local
-  gather_facts: true
+  gather_facts: false
 
   tasks:
     - name: Run stop tasks from role

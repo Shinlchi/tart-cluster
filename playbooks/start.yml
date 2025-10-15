@@ -2,7 +2,7 @@
 - name: Start Tart VMs
   hosts: all:!localhost
   connection: local
-  gather_facts: true
+  gather_facts: false
 
   tasks:
     - name: Run start tasks from role

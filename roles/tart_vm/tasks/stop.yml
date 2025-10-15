@@ -1,12 +1,7 @@
 ---
 - name: Stop VM
-  ansible.builtin.command:
-    argv: [ "tart", "stop", "{{ vm.name }}" ]
-  loop: "{{ vms }}"
-  loop_control:
-    loop_var: vm
-    label: "{{ vm.name }}"
-  async: 86400
-  poll: 0
+  ansible.builtin.shell: |
+    tart stop {{ inventory_hostname }}
+  delegate_to: localhost
   tags:
     - stop

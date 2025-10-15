@@ -1,19 +1,20 @@
 ---
 - name: Configure CPU and memory for VMs
   ansible.builtin.command:
-    argv: [ "tart", "set", "{{ vm.name }}", "--cpu", "{{ vm.cpu }}", "--memory", "{{ vm.memory }}" ]
-  loop: "{{ vms }}"
+    argv: [ "tart", "set", "{{ item }}", "--cpu", "{{ hostvars[item].cpu }}", "--memory", "{{ hostvars[item].memory }}" ]
+  loop: "{{ groups['all'] | difference(['localhost']) }}"
   loop_control:
-    loop_var: vm
-    label: "{{ vm.name }}"
+    label: "{{ item }}"
+  delegate_to: localhost
+  tags:
+    - deploy
 
 - name: Run VM
   ansible.builtin.command:
-    argv: [ "tart", "run", "--no-graphics", "{{ vm.name }}" ]
-  loop: "{{ vms }}"
+    argv: [ "tart", "run", "--no-graphics", "{{ item }}" ]
+  loop: "{{ groups['all'] | difference(['localhost'])}}"
   loop_control:
-    loop_var: vm
-    label: "{{ vm.name }}"
+    label: "{{ item }}"
   async: 86400
   poll: 0
   tags:
