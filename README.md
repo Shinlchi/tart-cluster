@@ -18,6 +18,7 @@ ansible --version
 ansible-playbook playbooks/prepare.yml
 ansible-playbook playbooks/deploy.yml
 ansible-playbook playbooks/configure.yml --ask-become-pass
+ansible all -i inventory/tart_dynamic.py -i inventory/cluster.yml -m ping
 ansible-playbook playbooks/start.yml
 ansible-playbook playbooks/stop.yml
 ansible-playbook playbooks/remove.yml
